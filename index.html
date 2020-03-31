@@ -43,18 +43,15 @@
     var runner = Runner.create();
     Runner.run(runner, engine);
 
-    // add bodies
-    var stack = Composites.stack(200, -300, 10, 55, 25, 25, function(x, y) {
-        return Bodies.circle(x, y, 10, 10);
-    });
+    const Y = 340;
 
     World.add(world, [
         //stack,
         // walls
-        Bodies.rectangle(450-25 - 250, 400, 25, 220, { isStatic: true, angle: -45 * 0.01745329}),
-        Bodies.rectangle(450-25,       400, 25, 220, { isStatic: true, angle: 45 * 0.01745329}),
-        Bodies.rectangle(1050-25 - 250, 400, 25, 220, { isStatic: true, angle: -45 * 0.01745329}),
-        Bodies.rectangle(1050-25,       400, 25, 220, { isStatic: true, angle: 45 * 0.01745329})
+        Bodies.rectangle(450-25 - 250,  Y, 25, 220, { isStatic: true, angle: -45 * 0.01745329}),
+        Bodies.rectangle(450-25,        Y, 25, 220, { isStatic: true, angle: 45 * 0.01745329}),
+        Bodies.rectangle(1050-25 - 250, Y, 25, 220, { isStatic: true, angle: -45 * 0.01745329}),
+        Bodies.rectangle(1050-25,       Y, 25, 220, { isStatic: true, angle: 45 * 0.01745329})
     ]);
 
     world.bodies[0].render.fillStyle = '#000000';
@@ -77,12 +74,14 @@
 
     setInterval(function(){
       World.add(world, [
-        Bodies.circle(300+((0.5-Math.random())*20), -50, 15, 15)
+        Bodies.circle(300+((0.5-Math.random())*50), -50, 15, 15)
       ]);
       world.bodies[world.bodies.length-1].render.fillStyle = '#f08';
 
-      pct += 1 * 0.45;
-      if (pct > 75) pct = 75;
+      if (days >= 13) {
+        pct += 1 * 1.5;
+        if (pct > 68) pct = 68;
+      }
 
       days += 0.1;
 
@@ -95,18 +94,19 @@
 
       if (days < 14 || (Math.random() > pct/100)) {
         World.add(world, [
-          Bodies.circle(900+((0.5-Math.random())*20), -50, 15, 15)
+          Bodies.circle(900+((0.5-Math.random())*50), -50, 15, 15)
         ]);
         world.bodies[world.bodies.length-1].render.fillStyle = '#f08';
       }
 
-      world.bodies.forEach(function(body){
-        if(body.bounds.max.y > 500 && body.bounds.min.x > 200 && body.bounds.max.x < 500)
-          body.render.fillStyle = '#0c4';
-        if(body.bounds.max.y > 500 && body.bounds.min.x > 700 && body.bounds.max.x < 1000)
-          body.render.fillStyle = '#0c4';
-      });
-    }, 30);
+      // show infected vs treated
+      // world.bodies.forEach(function(body){
+      //   if(body.bounds.max.y > (Y+100) && body.bounds.min.x > 200 && body.bounds.max.x < 500)
+      //     body.render.fillStyle = '#4c4';
+      //   if(body.bounds.max.y > (Y+100) && body.bounds.min.x > 700 && body.bounds.max.x < 1000)
+      //     body.render.fillStyle = '#4c4';
+      // });
+    }, 35);
 
     // remove out of bounds balls
     setInterval(function(){
@@ -155,7 +155,8 @@
   #days {
     left: 0;
     width: 1200px;
-    top: 0;
+    top: 50px;
+    font-weight: 900;
   }
   #pct1 {
     left: 50px;
@@ -167,11 +168,12 @@
   #covidchat {
     position: absolute;
     z-index: 1;
-    left: 890px;
-    top: 580px;
+    right: 30px;
+    top: 30px;
     font: 30px/30px 'Fira Sans', sans-serif;
-    color: ##000;
-    opacity: 0.8;
+    font-weight: 300;
+    color: #000;
+    opacity: 1;
   }
   #covidchat > img {
     width: 25px;
@@ -182,6 +184,8 @@
   }
   #legend {
     left: 30px;
+    top: 150px;
+    text-align: center;
   }
   .pct-label {
     position: absolute;
@@ -189,7 +193,7 @@
     color: #000;
     font-size: 60px;
     text-align: center;
-    top: 100px;
+    top: 20px;
     width: 600px;
     font-weight: 900;
     font-family: 'Fira Sans', sans-serif;
@@ -209,7 +213,7 @@
     left: 0;
     top: 0;
     width: 1200px;
-    height: 300px;
+    height: 100px;
     background: linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0));
   }
   .l {
@@ -223,42 +227,95 @@
   #l_capacity_1 {
     position: absolute;
     left: -50px;
-    top: 400px;
+    top: 340px;
     transform: rotate(45deg);
   }
   #l_capacity_2 {
     position: absolute;
     left: 550px;
-    top: 400px;
+    top: 340px;
     transform: rotate(45deg);
   }
   div {
     box-sizing: border-box;
     xborder: 1px solid red;
   }
+  .frame {
+    width: 1200px;
+    height: 630px;
+    position: absolute;
+    top: 0;
+  }
+  .l2 {
+    font-size: 25px;
+    color: #000;
+    font-weight: 900;
+    font-family: 'Fira Sans', sans-serif;
+    text-align: center;
+    padding: 3px 10px;
+    position: absolute;
+  }
+  #l2_1 {
+    color: white;
+    background: black;
+    left: 175px;
+    top: 250px;
+  }
+  #l2_2 {
+    color: #f08;
+    background: white;
+    left: 785px;
+    top: 250px;
+  }
+  #stay_at_home {
+    position: absolute;
+    background: black;
+    color: white;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    text-align: center;
+    font-size: 50px;
+    line-height: 75px;
+    font-weight: 900;
+    font-family: 'Fira Sans', sans-serif;
+  }
 </style>
-<div id="shade"></div>
+<div class="frame">
+<div id="xshade"></div>
 <div class="days" id="days"></div>
 
 <div class="pct" id="pct1"></div>
-<div class="pct-label" id="pct1_label">No Measures</div>
+<div class="pct-label" id="pct1_label"></div>
 <div class="pct" id="pct2"></div>
-<div class="pct-label" id="pct2_label">Strict Measures</div>
+<div class="pct-label" id="pct2_label"></div>
 
 <div class="l" id="l_capacity_1">
-  Hospital capacity
+  Life as usual
 </div>
 <div class="l" id="l_capacity_2">
-  Hospital capacity
+  Strict measures
+</div>
+
+<div class="l2" id="l2_1">
+  infections increased
+</div>
+
+<div class="l2" id="l2_2">
+  infections slowed
 </div>
 
 <div id="legend">
-  <span style="color:#f08">⚫︎</span> infected &nbsp
-  <span style="color:#0c4">⚫︎</span> healed
+  <span style="color:#f08">⚫︎</span> infected<br>
+  <!--<span style="color:#0c4">⚫︎</span> treated-->
 </div>
 <div id="covidchat">
   #CovidChat
-  <img src="cc.svg"><img src="by.svg"><img src="nc.svg"><img src="sa.svg">
+  <img src="cc.svg"><img src="by.svg"><img src="sa.svg">
+</div>
+<div id="stay_at_home">
+  Stay-at-home takes time to work
 </div>
 </body>
 </html>
