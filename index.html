@@ -43,21 +43,38 @@
     var runner = Runner.create();
     Runner.run(runner, engine);
 
-    const Y = 340;
+    const Y = 380;
+    const B1 = 35;
+    const B2 = 665;
+    const RAMP = 180;
 
     World.add(world, [
         //stack,
         // walls
-        Bodies.rectangle(450-25 - 250,  Y, 25, 220, { isStatic: true, angle: -45 * 0.01745329}),
-        Bodies.rectangle(450-25,        Y, 25, 220, { isStatic: true, angle: 45 * 0.01745329}),
-        Bodies.rectangle(1050-25 - 250, Y, 25, 220, { isStatic: true, angle: -45 * 0.01745329}),
-        Bodies.rectangle(1050-25,       Y, 25, 220, { isStatic: true, angle: 45 * 0.01745329})
+        // Bodies.rectangle(450-25 - 250,  Y, 25, 220, { isStatic: true, angle: -45 * 0.01745329}),
+        // Bodies.rectangle(450-25,        Y, 25, 220, { isStatic: true, angle: 45 * 0.01745329}),
+        // Bodies.rectangle(1050-25 - 250, Y, 25, 220, { isStatic: true, angle: -45 * 0.01745329}),
+        // Bodies.rectangle(1050-25,       Y, 25, 220, { isStatic: true, angle: 45 * 0.01745329})
+        // Bodies.rectangle(B1+30,  Y,    25,   140, { isStatic: true }),
+        // Bodies.rectangle(B1+115, Y+75, RAMP, 25,  { isStatic: true, angle: 0.25 }),
+        // Bodies.rectangle(B1+385, Y+75, RAMP, 25,  { isStatic: true, angle: -0.25 }),
+        // Bodies.rectangle(B1+465, Y,    25,   140, { isStatic: true }),
+
+        // Bodies.rectangle(B2+30,  Y, 25, 140, { isStatic: true }),
+        // Bodies.rectangle(B2+115, Y+75,  RAMP, 25, { isStatic: true, angle: 0.25 }),
+        // Bodies.rectangle(B2+385, Y+75,  RAMP, 25, { isStatic: true, angle: -0.25 }),
+        // Bodies.rectangle(B2+465, Y, 25, 140, { isStatic: true }),
     ]);
 
-    world.bodies[0].render.fillStyle = '#000000';
-    world.bodies[1].render.fillStyle = '#000000';
-    world.bodies[2].render.fillStyle = '#000000';
-    world.bodies[3].render.fillStyle = '#000000';
+    // world.bodies[0].render.fillStyle = '#000000';
+    // world.bodies[1].render.fillStyle = '#000000';
+    // world.bodies[2].render.fillStyle = '#000000';
+    // world.bodies[3].render.fillStyle = '#000000';
+
+    // world.bodies[4].render.fillStyle = '#000000';
+    // world.bodies[5].render.fillStyle = '#000000';
+    // world.bodies[6].render.fillStyle = '#000000';
+    // world.bodies[7].render.fillStyle = '#000000';
 
     // add mouse control
    //
@@ -70,17 +87,18 @@
         max: { x: 1200, y: 630 }
     });
 
-    var pct = 0, days = 1;
+    var pct = 0, days = 0.5, ding = false, skip = false;
+    var daysEl = document.getElementById('days');
+
+    const SPREAD = 150;
 
     setInterval(function(){
-      World.add(world, [
-        Bodies.circle(300+((0.5-Math.random())*50), -50, 15, 15)
-      ]);
-      world.bodies[world.bodies.length-1].render.fillStyle = '#f08';
+      if (skip) return;
+      daysEl = document.getElementById('days');
 
       if (days >= 13) {
         pct += 1 * 1.5;
-        if (pct > 68) pct = 68;
+        if (pct > 75) pct = 75;
       }
 
       days += 0.1;
@@ -89,12 +107,40 @@
       //   Math.round(days) + ' days';
       // document.getElementById('pct2').innerHTML =
       //   Math.round(days) + ' days';
-      document.getElementById('days').innerHTML =
-        Math.round(days) + ' days';
+      daysEl.innerHTML =
+        Math.round(days) + ' day'+ ((Math.round(days) == 1) ? '' : 's');
+
+      // if (days >= 14) {
+      //   document.getElementById('cutoff').style.opacity = '0.999';
+      // }
+
+      if (!ding && Math.round(days) == 14) {
+        ding = true;
+        skip = true;
+        //Matter.Render.stop(render);
+        daysEl.classList.add('blinking');
+        engine.timing.timeScale = 0.1;
+
+        setTimeout(function(){
+          skip = false;
+          engine.timing.timeScale = 1;
+          daysEl.classList.remove('blinking');
+          //Matter.Render.run(render);
+        }, 1100);
+      }
+
+      var inf = Math.round(1 + (Math.max(0,days-14))*0.15);
+      for (var i=0; i < inf; i++) {
+        World.add(world, [
+          Bodies.circle(300+((0.5-Math.random())*SPREAD), -50, 15, 15)
+        ]);
+        world.bodies[world.bodies.length-1].render.fillStyle = '#f08';
+      }
+
 
       if (days < 14 || (Math.random() > pct/100)) {
         World.add(world, [
-          Bodies.circle(900+((0.5-Math.random())*50), -50, 15, 15)
+          Bodies.circle(900+((0.5-Math.random())*SPREAD), -50, 15, 15)
         ]);
         world.bodies[world.bodies.length-1].render.fillStyle = '#f08';
       }
@@ -153,10 +199,33 @@
     font-feature-settings: "tnum";
   }
   #days {
-    left: 0;
-    width: 1200px;
-    top: 50px;
+    display: inline-block;
+    left: 50%;
+    top: 40px;
+    transform: translate(-50%, 0);
+    width: auto;
+    padding: 3px 20px;
     font-weight: 900;
+    transition: all 0.2s;
+    background: rgba(255,255,255,0.75);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(0,0,0,0.9);
+  }
+  @keyframes blinking {
+    100% {
+      background: #f08;
+      color: #fff;
+    }
+    0% {
+      background: rgba(255,255,255,0.75);
+      color: rgba(0,0,0,0.9);
+    }
+  }
+  #days.blinking {
+    animation-name: blinking;
+    animation-duration: 0.2s;
+    animation-iteration-count: 6;
+    animation-direction: alternate;
   }
   #pct1 {
     left: 50px;
@@ -172,8 +241,11 @@
     top: 30px;
     font: 30px/30px 'Fira Sans', sans-serif;
     font-weight: 300;
-    color: #000;
+    color: rgba(0,0,0,0.9);
     opacity: 1;
+    background: rgba(255,255,255,0.75);
+    padding: 4px 10px;
+    -webkit-backdrop-filter: blur(10px);
   }
   #covidchat > img {
     width: 25px;
@@ -183,9 +255,16 @@
     top: 3px;
   }
   #legend {
-    left: 30px;
+    right: auto;
+    left: 50%;
+    margin: 0 auto;
     top: 150px;
     text-align: center;
+    padding: 2px 7px;
+    background: rgba(255,255,255,0.75);
+    -webkit-backdrop-filter: blur(10px);
+    width: auto;
+    transform: translate(-50%,0);
   }
   .pct-label {
     position: absolute;
@@ -247,38 +326,60 @@
     top: 0;
   }
   .l2 {
-    font-size: 25px;
+    font-size: 45px;
     color: #000;
     font-weight: 900;
     font-family: 'Fira Sans', sans-serif;
     text-align: center;
-    padding: 3px 10px;
+    padding: 5px 15px;
     position: absolute;
   }
   #l2_1 {
     color: white;
-    background: black;
+    background: rgba(0,0,0,0.8);
+    -webkit-backdrop-filter: blur(10px);
     left: 175px;
-    top: 250px;
+    top: 265px;
   }
   #l2_2 {
-    color: #f08;
-    background: white;
-    left: 785px;
-    top: 250px;
+    color: white;
+    background: rgba(0,0,0,0.8);
+    -webkit-backdrop-filter: blur(10px);
+    left: 725px;
+    top: 265px;
   }
   #stay_at_home {
     position: absolute;
-    background: black;
+    background: rgba(0,0,0,0.8);
+    -webkit-backdrop-filter: blur(10px);
     color: white;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
     right: 0;
     height: 80px;
     text-align: center;
     font-size: 50px;
-    line-height: 75px;
+    line-height: 78px;
     font-weight: 900;
+    font-family: 'Fira Sans', sans-serif;
+  }
+  #cutoff {
+    position: absolute;
+    opacity: 0;
+    transition: all 2s;
+    top: 390px;
+    left: 0;
+    right: 0;
+    border-top: 5px dashed #000;
+  }
+  #cutoff > span {
+    display: block;
+    position: relative;
+    top: -60px;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 900;
+    color: #000;
     font-family: 'Fira Sans', sans-serif;
   }
 </style>
@@ -292,18 +393,19 @@
 <div class="pct-label" id="pct2_label"></div>
 
 <div class="l" id="l_capacity_1">
-  Life as usual
 </div>
 <div class="l" id="l_capacity_2">
-  Strict measures
 </div>
 
 <div class="l2" id="l2_1">
-  infections increased
+  life as usual
 </div>
 
 <div class="l2" id="l2_2">
-  infections slowed
+  strict measures
+</div>
+<div id="cutoff">
+  <span>Infections<br>at 14 days</span>
 </div>
 
 <div id="legend">
@@ -315,7 +417,7 @@
   <img src="cc.svg"><img src="by.svg"><img src="sa.svg">
 </div>
 <div id="stay_at_home">
-  Stay-at-home takes time to work
+  Stay-at-home takes time to kick in
 </div>
 </body>
 </html>
