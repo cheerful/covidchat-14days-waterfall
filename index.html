@@ -108,7 +108,7 @@
       // document.getElementById('pct2').innerHTML =
       //   Math.round(days) + ' days';
       daysEl.innerHTML =
-        Math.round(days) + ' dia'+ ((Math.round(days) == 1) ? '' : 's');
+        Math.round(days) + ' Tag'+ ((Math.round(days) == 1) ? '' : 'e');
 
       // if (days >= 14) {
       //   document.getElementById('cutoff').style.opacity = '0.999';
@@ -338,14 +338,14 @@
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 175px;
+    left: 115px;
     top: 265px;
   }
   #l2_2 {
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 725px;
+    left: 660px;
     top: 265px;
   }
   #stay_at_home {
@@ -398,18 +398,15 @@
 </div>
 
 <div class="l2" id="l2_1">
-  vida normal
+  Leben wie gehabt
 </div>
 
 <div class="l2" id="l2_2">
-  contenção forte
-</div>
-<div id="cutoff">
-  <span>Infeções<br>aos 14 dias</span>
+  Strenge Maßnahmen
 </div>
 
 <div id="legend">
-  <span style="color:#f08">⚫︎</span> infetados<br>
+  <span style="color:#f08">⚫︎</span> Infizierte Person<br>
   <!--<span style="color:#0c4">⚫︎</span> treated-->
 </div>
 <div id="covidchat">
@@ -417,7 +414,7 @@
   <img src="cc.svg"><img src="by.svg"><img src="sa.svg">
 </div>
 <div id="stay_at_home">
-  Ficar em casa demora a fazer efeito
+  Zuhause bleiben braucht Zeit zu wirken
 </div>
 </body>
 </html>
