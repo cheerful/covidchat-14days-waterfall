@@ -108,7 +108,7 @@
       // document.getElementById('pct2').innerHTML =
       //   Math.round(days) + ' days';
       daysEl.innerHTML =
-        Math.round(days) + ' day'+ ((Math.round(days) == 1) ? '' : 's');
+        Math.round(days) + ' '+ ((Math.round(days) == 1) ? 'ден' : 'дни');
 
       // if (days >= 14) {
       //   document.getElementById('cutoff').style.opacity = '0.999';
@@ -338,14 +338,16 @@
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 175px;
-    top: 265px;
+    left: 95px;
+    top: 285px;
+    width: 400px;
   }
   #l2_2 {
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 725px;
+    left: 665px;
+    max-width: 450px;
     top: 265px;
   }
   #stay_at_home {
@@ -358,7 +360,7 @@
     right: 0;
     height: 80px;
     text-align: center;
-    font-size: 50px;
+    font-size: 37px;
     line-height: 78px;
     font-weight: 900;
     font-family: 'Fira Sans', sans-serif;
@@ -398,18 +400,15 @@
 </div>
 
 <div class="l2" id="l2_1">
-  life as usual
+  нормален начин на живот
 </div>
 
 <div class="l2" id="l2_2">
-  strict measures
-</div>
-<div id="cutoff">
-  <span>Infections<br>at 14 days</span>
+  карантина и стриктно спазване на правилата
 </div>
 
 <div id="legend">
-  <span style="color:#f08">⚫︎</span> infected<br>
+  <span style="color:#f08">⚫︎</span> заразени<br>
   <!--<span style="color:#0c4">⚫︎</span> treated-->
 </div>
 <div id="covidchat">
@@ -417,7 +416,7 @@
   <img src="cc.svg"><img src="by.svg"><img src="sa.svg">
 </div>
 <div id="stay_at_home">
-  Stay-at-home takes time to kick in
+  Остани-у-дома отнема време за показване на ефективността му
 </div>
 </body>
 </html>
