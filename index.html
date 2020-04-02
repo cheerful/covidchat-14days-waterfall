@@ -108,7 +108,7 @@
       // document.getElementById('pct2').innerHTML =
       //   Math.round(days) + ' days';
       daysEl.innerHTML =
-        Math.round(days) + ' day'+ ((Math.round(days) == 1) ? '' : 's');
+        Math.round(days) + ' andro';//+ ((Math.round(days) == 1) ? '' : 's');
 
       // if (days >= 14) {
       //   document.getElementById('cutoff').style.opacity = '0.999';
@@ -338,7 +338,8 @@
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 175px;
+    left: 105px;
+    width: 350px;
     top: 265px;
   }
   #l2_2 {
@@ -346,7 +347,7 @@
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
     left: 725px;
-    top: 265px;
+    top: 290px;
   }
   #stay_at_home {
     position: absolute;
@@ -398,18 +399,15 @@
 </div>
 
 <div class="l2" id="l2_1">
-  life as usual
+  Fiainana toy ny mahazatra
 </div>
 
 <div class="l2" id="l2_2">
-  strict measures
-</div>
-<div id="cutoff">
-  <span>Infections<br>at 14 days</span>
+  Fepetra hentitra
 </div>
 
 <div id="legend">
-  <span style="color:#f08">⚫︎</span> infected<br>
+  <span style="color:#f08">⚫︎</span> Voa<br>
   <!--<span style="color:#0c4">⚫︎</span> treated-->
 </div>
 <div id="covidchat">
@@ -417,7 +415,7 @@
   <img src="cc.svg"><img src="by.svg"><img src="sa.svg">
 </div>
 <div id="stay_at_home">
-  Stay-at-home takes time to kick in
+
 </div>
 </body>
 </html>
