@@ -108,7 +108,7 @@
       // document.getElementById('pct2').innerHTML =
       //   Math.round(days) + ' days';
       daysEl.innerHTML =
-        Math.round(days) + ' day'+ ((Math.round(days) == 1) ? '' : 's');
+        Math.round(days) + ' روز';//+ ((Math.round(days) == 1) ? '' : 's');
 
       // if (days >= 14) {
       //   document.getElementById('cutoff').style.opacity = '0.999';
@@ -345,7 +345,7 @@
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 725px;
+    left: 695px;
     top: 265px;
   }
   #stay_at_home {
@@ -385,7 +385,7 @@
 </style>
 <div class="frame">
 <div id="xshade"></div>
-<div class="days" id="days"></div>
+<div class="days" id="days" dir="rtl"></div>
 
 <div class="pct" id="pct1"></div>
 <div class="pct-label" id="pct1_label"></div>
@@ -397,27 +397,24 @@
 <div class="l" id="l_capacity_2">
 </div>
 
-<div class="l2" id="l2_1">
-  life as usual
+<div class="l2" id="l2_1" dir="rtl">
+  زندگی معمول
 </div>
 
-<div class="l2" id="l2_2">
-  strict measures
-</div>
-<div id="cutoff">
-  <span>Infections<br>at 14 days</span>
+<div class="l2" id="l2_2" dir="rtl">
+  اقدامات سخت‌گیرانه
 </div>
 
-<div id="legend">
-  <span style="color:#f08">⚫︎</span> infected<br>
+<div id="legend" dir="rtl">
+  <span style="color:#f08">⚫︎</span> مبتلا شده<br>
   <!--<span style="color:#0c4">⚫︎</span> treated-->
 </div>
 <div id="covidchat">
   #CovidChat
   <img src="cc.svg"><img src="by.svg"><img src="sa.svg">
 </div>
-<div id="stay_at_home">
-  Stay-at-home takes time to kick in
+<div id="stay_at_home" dir="rtl">
+  اثرگذاری درخانه_بمانیم زمان می‌برد
 </div>
 </body>
 </html>
