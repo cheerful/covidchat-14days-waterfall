@@ -108,7 +108,7 @@
       // document.getElementById('pct2').innerHTML =
       //   Math.round(days) + ' days';
       daysEl.innerHTML =
-        Math.round(days) + ' day'+ ((Math.round(days) == 1) ? '' : 's');
+        Math.round(days) + '&nbsp;' + ((Math.round(days) == 1) ? 'giorno' : 'giorni');
 
       // if (days >= 14) {
       //   document.getElementById('cutoff').style.opacity = '0.999';
@@ -338,15 +338,16 @@
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 175px;
+    left: 75px;
     top: 265px;
   }
   #l2_2 {
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 725px;
-    top: 265px;
+    left: 705px;
+    top: 212px;
+    width: 400px;
   }
   #stay_at_home {
     position: absolute;
@@ -358,7 +359,7 @@
     right: 0;
     height: 80px;
     text-align: center;
-    font-size: 50px;
+    font-size: 35px;
     line-height: 78px;
     font-weight: 900;
     font-family: 'Fira Sans', sans-serif;
@@ -398,18 +399,15 @@
 </div>
 
 <div class="l2" id="l2_1">
-  life as usual
+  Stile di vita regolare
 </div>
 
 <div class="l2" id="l2_2">
-  strict measures
-</div>
-<div id="cutoff">
-  <span>Infections<br>at 14 days</span>
+  Quarantena e rispetto rigoroso delle regole
 </div>
 
 <div id="legend">
-  <span style="color:#f08">⚫︎</span> infected<br>
+  <span style="color:#f08">⚫︎</span> Persone infette<br>
   <!--<span style="color:#0c4">⚫︎</span> treated-->
 </div>
 <div id="covidchat">
@@ -417,7 +415,7 @@
   <img src="cc.svg"><img src="by.svg"><img src="sa.svg">
 </div>
 <div id="stay_at_home">
-  Stay-at-home takes time to kick in
+  I benefici di stare a casa si vedono solo a lungo termine. Non demordete!
 </div>
 </body>
 </html>
