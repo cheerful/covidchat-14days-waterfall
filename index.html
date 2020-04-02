@@ -108,7 +108,7 @@
       // document.getElementById('pct2').innerHTML =
       //   Math.round(days) + ' days';
       daysEl.innerHTML =
-        Math.round(days) + ' day'+ ((Math.round(days) == 1) ? '' : 's');
+        Math.round(days) + '&nbsp;'+ ((Math.round(days) == 1) ? 'zi' : 'zile');
 
       // if (days >= 14) {
       //   document.getElementById('cutoff').style.opacity = '0.999';
@@ -338,14 +338,14 @@
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 175px;
+    left: 55px;
     top: 265px;
   }
   #l2_2 {
     color: white;
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: blur(10px);
-    left: 725px;
+    left: 745px;
     top: 265px;
   }
   #stay_at_home {
@@ -398,18 +398,15 @@
 </div>
 
 <div class="l2" id="l2_1">
-  life as usual
+  Traiul de viața obișnuit
 </div>
 
 <div class="l2" id="l2_2">
-  strict measures
-</div>
-<div id="cutoff">
-  <span>Infections<br>at 14 days</span>
+  măsuri stricte
 </div>
 
 <div id="legend">
-  <span style="color:#f08">⚫︎</span> infected<br>
+  <span style="color:#f08">⚫︎</span> Infectați<br>
   <!--<span style="color:#0c4">⚫︎</span> treated-->
 </div>
 <div id="covidchat">
@@ -417,7 +414,7 @@
   <img src="cc.svg"><img src="by.svg"><img src="sa.svg">
 </div>
 <div id="stay_at_home">
-  Stay-at-home takes time to kick in
+  Statul acasă necesită timp să își facă efect.
 </div>
 </body>
 </html>
